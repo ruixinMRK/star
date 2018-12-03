@@ -1,0 +1,6 @@
+必须安装nodejs
+1.第一次SVN更新完项目后，运行cmd/install.bat 安装下依赖包，
+2.以后运行项目,运行cmd/run.bat，在浏览器中访问localhost:4004 即可访问项目
+3.发布项目时,运行cmd/build.bat，发布的项目在dist目录中
+
+*******如果自己安装依赖包之后,必须使用命令 npm install xx --save-dev**********

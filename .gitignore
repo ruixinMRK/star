@@ -1,0 +1,6 @@
+node_modules
+.cache
+.git
+/src/config/routes.js
+static/
+static
