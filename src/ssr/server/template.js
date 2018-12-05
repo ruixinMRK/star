@@ -3,12 +3,14 @@ import { renderToString } from 'react-dom/server';
 import App from '../common/app';
 import { StaticRouter } from 'react-router-dom'
 import { Provider } from "react-redux";
-import {createStore} from 'redux';
+import {createStore,applyMiddleware} from 'redux';
 import {count} from '../common/store';
+import thunk from 'redux-thunk';
+
 
 
 export function render(str,req){
-	let store = createStore(count);
+	let store = createStore(count,applyMiddleware(thunk));
 	let component = renderToString(
 		<Provider store={store}>
 			<StaticRouter location={req.url} context={{}}>

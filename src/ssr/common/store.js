@@ -1,4 +1,6 @@
 
+import axios from 'axios';
+
 let initState = {num:1};
 
 //constact
@@ -20,4 +22,11 @@ export function count(state = initState,action){
 //action creator
 export function changeAdd(){
 	return {type:ADD};
+}
+
+
+export function load(){
+	return (dispatch)=>{
+		console.log('dispatch')
+	}
 }

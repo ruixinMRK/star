@@ -1,18 +1,12 @@
 import React from 'react';
 import {Route,Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {changeAdd} from '../common/store';
-
-function index(){
-	return <div>首页</div>
-}
-function home(){
-	return <div>home</div>
-}
+import {changeAdd,load} from '../common/store';
+import routes from '../common/routes';
 
 @connect(
 	state=>state,
-	{changeAdd},
+	{changeAdd,load},
 	undefined,
 	{pure:false}  //不在此参数  无法响应Link的路由跳转
 )
@@ -22,8 +16,10 @@ class App extends React.Component{
 	}
 	clickItem=()=>{
 		this.props.changeAdd();
+		this.props.load();
 	}
 	render(){
+		
 		return (
 			<div>
 				<div>
@@ -34,8 +30,13 @@ class App extends React.Component{
 				---------------------
 				{this.props.num}
 				---------------------
-				<Route exact path='/' component={index}></Route>
-				<Route exact path='/home' component={home}></Route>
+				{
+					routes.map((item)=>{
+						return <Route {...item}></Route>
+					})
+				}
+				{/* <Route exact path='/' component={index}></Route>
+				<Route exact path='/home' component={home}></Route> */}
 				<div onClick={this.clickItem}>这个是测试后端渲染无法渲染事件的问题</div>
 			</div>
 		)
