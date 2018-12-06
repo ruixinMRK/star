@@ -7,7 +7,7 @@ import {createStore,applyMiddleware} from 'redux';
 import {count} from '../common/store';
 import thunk from 'redux-thunk';
 
-let store = createStore(count,applyMiddleware(thunk));
+let store = createStore(count,window.sreverData ,applyMiddleware(thunk));
 
 ReactDOM.hydrate(
 	<Provider store={store}>

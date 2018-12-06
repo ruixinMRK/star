@@ -83,11 +83,14 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
+		"asset-require-hook": "^1.2.0",
+		"css-modules-require-hook": "^4.2.3",
 		"immutable": "^4.0.0-rc.12",
 		"npm-run-all": "^4.1.5",
 		"react": "^16.6.3",
 		"react-dom": "^16.6.3",
 		"react-redux": "^5.1.1",
+		"react-router-config": "^4.4.0-beta.6",
 		"react-router-dom": "^4.3.1",
 		"redux": "^4.0.1",
 		"redux-thunk": "^2.3.0"

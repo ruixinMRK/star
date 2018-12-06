@@ -3,6 +3,7 @@ import {Route,Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {changeAdd,load} from '../common/store';
 import routes from '../common/routes';
+import { renderRoutes } from 'react-router-config'
 
 @connect(
 	state=>state,
@@ -16,7 +17,6 @@ class App extends React.Component{
 	}
 	clickItem=()=>{
 		this.props.changeAdd();
-		this.props.load();
 	}
 	render(){
 		
@@ -31,9 +31,11 @@ class App extends React.Component{
 				{this.props.num}
 				---------------------
 				{
-					routes.map((item)=>{
-						return <Route {...item}></Route>
-					})
+					// routes.map((item)=>{
+					// 	return <Route {...item}></Route>
+					// })
+
+					renderRoutes(routes)
 				}
 				{/* <Route exact path='/' component={index}></Route>
 				<Route exact path='/home' component={home}></Route> */}

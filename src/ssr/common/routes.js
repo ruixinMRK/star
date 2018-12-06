@@ -20,8 +20,8 @@ export default [
         path:'/home',
         key:'/home',
         component:Home,
-        loadData:function(){
-            return Home.loadData();
+        loadData:function(store){
+            return Home.loadData(store);
         }
     }
 ]

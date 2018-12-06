@@ -1,18 +1,36 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {load} from './store';
+import {load,changeList} from './store';
+import { connect } from 'react-redux';
 
-@connect(state=>state,{load})
+@connect(state=>({list:state.list}),{load,changeList})
 class Home extends React.Component{
     constructor(props){
         super(props);
-    }
+	}
+	componentDidMount(){
+		if(this.props.list.length < 1){
+			this.props.load();
+		}
+	}
+	clickItem=()=>{
+		this.props.changeList([{name:'1'},{name:"2"}]);
+	}
     render(){
-        return <div>home</div>
+        return (<div onClick={this.clickItem}>
+			home
+			<ul>
+			{
+				this.props.list.map((item)=>{
+					return <li key ={item.name}>{item.name}</li>
+				})
+			}
+			</ul>
+		</div>)
     }
 }
 
-Home.loadData = function(){
-    load();
+Home.loadData = (store)=>{
+	return store.dispatch(load()) ;
 }
+
 export default Home;
