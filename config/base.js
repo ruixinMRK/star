@@ -1,7 +1,7 @@
 
 /* *************此文件只与打包有关,重要********** */
 module.exports = {
-  devServerPath: '/static/', //本地开发访问目录
+  devServerPath: '../', //本地开发访问目录
   dest: './',//打包的目录 src/dist/
   title:'闪店云商家云',//html文件title
   publicPath:"<?php echo $cdn?>static/",//生产环境地址(打包后)

@@ -1,8 +1,11 @@
 import React from 'react';
 import {load,changeList} from './store';
 import { connect } from 'react-redux';
+import css from '../asset/main.css';
+import {RenderHoc} from './extract_css';
 
 @connect(state=>({list:state.list}),{load,changeList})
+@RenderHoc(css)
 class Home extends React.Component{
     constructor(props){
         super(props);
@@ -13,11 +16,12 @@ class Home extends React.Component{
 		}
 	}
 	clickItem=()=>{
-		this.props.changeList([{name:'1'},{name:"2"}]);
+		// this.props.changeList([{name:'1'},{name:"2"}]);
 	}
     render(){
-        return (<div onClick={this.clickItem}>
-			home
+		console.log(this.props);
+        return (<div onClick={this.clickItem} className={css.test}>
+			home123456
 			<ul>
 			{
 				this.props.list.map((item)=>{

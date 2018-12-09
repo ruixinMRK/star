@@ -23,19 +23,24 @@ export function render(str,req,res){
 	//加载数据
 	Promise.all(promises).then(()=>{
 		
+		const css = new Set(); // CSS for all rendered React components
+  		const context = { insertCss: (style) => css.add(style._getCss()) };
+
 		let component = renderToString(
 			<Provider store={store}>
-				<StaticRouter location={req.url} context={{isServer:true}}>
+				<StaticRouter location={req.url} context={{isServer:true,...context}}>
 					<App/>
 				</StaticRouter>
 			</Provider>
 		);
-
 		res.end(`
 			<html>
 				<head>
 					<meta charset="UTF-8">
 					<title>ssr</title>
+					<style data-type='server-render'>
+					${[...css].join('\n')}
+					</style>
 				</head>
 				<body>
 					<script>window.sreverData = ${JSON.stringify(store.getState())}</script>
@@ -44,7 +49,8 @@ export function render(str,req,res){
 				</body>	
 			</html>
 		`)
-	}).catch(()=>{
+	}).catch((error)=>{
+		console.log(error)
 		return res.end(<p>ERROR</p>);
 	})
 

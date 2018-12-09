@@ -45,7 +45,8 @@ module.exports = {
                 test: /\.css(\?.*)?$/,
                 // use: [MiniCssExtractPlugin.loader,'happypack/loader?id=css']
                 use:[
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader?modules',
                     {
                         loader: 'postcss-loader',
@@ -59,7 +60,8 @@ module.exports = {
                 test: /\.less(\?.*)?$/,
                 // use: [MiniCssExtractPlugin.loader,'happypack/loader?id=less']
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader?modules',
                     {
                         loader: 'postcss-loader',
@@ -95,6 +97,9 @@ module.exports = {
         ]
     },
     plugins: [
+
+        // new MiniCssExtractPlugin({filename: 'css/[name].css?[contenthash:8]'}),
+
         new HappyPack({
             id: 'babel',
             loaders: ['babel-loader'],

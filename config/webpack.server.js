@@ -45,7 +45,7 @@ module.exports = {
                 test: /\.css(\?.*)?$/,
                 // use: [MiniCssExtractPlugin.loader,'happypack/loader?id=css']
                 use:[
-                    MiniCssExtractPlugin.loader,
+                    'isomorphic-style-loader',
                     'css-loader?modules',
                     {
                         loader: 'postcss-loader',
@@ -59,7 +59,7 @@ module.exports = {
                 test: /\.less(\?.*)?$/,
                 // use: [MiniCssExtractPlugin.loader,'happypack/loader?id=less']
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'isomorphic-style-loader',
                     'css-loader?modules',
                     {
                         loader: 'postcss-loader',
