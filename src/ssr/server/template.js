@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToString,renderToNodeStream } from 'react-dom/server';
 import App from '../common/app';
 import { StaticRouter } from 'react-router-dom'
 import { Provider } from "react-redux";
@@ -26,29 +26,44 @@ export function render(str,req,res){
 		const css = new Set(); // CSS for all rendered React components
   		const context = { insertCss: (style) => css.add(style._getCss()) };
 
-		let component = renderToString(
-			<Provider store={store}>
-				<StaticRouter location={req.url} context={{isServer:true,...context}}>
-					<App/>
-				</StaticRouter>
-			</Provider>
+		// let component = renderToString(
+		// 	<Provider store={store}>
+		// 		<StaticRouter location={req.url} context={{isServer:true,...context}}>
+		// 			<App/>
+		// 		</StaticRouter>
+		// 	</Provider>
+		// );
+		// res.end(`
+		// 	<html>
+		// 		<head>
+		// 			<meta charset="UTF-8">
+		// 			<title>ssr</title>
+		// 			<style data-type='server-render'>
+		// 			${[...css].join('\n')}
+		// 			</style>
+		// 		</head>
+		// 		<body>
+		// 			<script>window.sreverData = ${JSON.stringify(store.getState())}</script>
+		// 			<div id='app'>${component}</div>
+		// 			<script src='main.js'></script>
+		// 		</body>	
+		// 	</html>
+		// `)
+
+		res.write("<!DOCTYPE html><html><head><meta charset='UTF-8'><title>ssr</title></head><body>");
+		res.write(`<script>window.sreverData = ${JSON.stringify(store.getState())}</script><div id='app'>`);
+		const stream = renderToNodeStream(<Provider store={store}>
+			 		<StaticRouter location={req.url} context={{isServer:true,...context}}>
+						<App/>
+					</StaticRouter>
+				</Provider>
 		);
-		res.end(`
-			<html>
-				<head>
-					<meta charset="UTF-8">
-					<title>ssr</title>
-					<style data-type='server-render'>
-					${[...css].join('\n')}
-					</style>
-				</head>
-				<body>
-					<script>window.sreverData = ${JSON.stringify(store.getState())}</script>
-					<div id='app'>${component}</div>
-					<script src='main.js'></script>
-				</body>	
-			</html>
-		`)
+		stream.pipe(res, { end: false });
+		stream.on('end', () => {
+			res.write("</div></body></html>");
+			res.end();
+		});   
+
 	}).catch((error)=>{
 		console.log(error)
 		return res.end(<p>ERROR</p>);
