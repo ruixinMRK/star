@@ -23,6 +23,9 @@
 // });
 // 上述情况已经采用 isomorphic-style-loader 解决  需要处理首页样式重复的问题(客户端和服务器个会渲染一遍首页的样式)
 
+
+//当服务器端 改为最新的API renderToNodeStream 去渲染DOM时,首屏CSS无法提前注入,需要寻找解决方案
+
 import express from 'express';
 import {render} from './template';
 

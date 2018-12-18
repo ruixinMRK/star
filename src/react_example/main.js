@@ -19,7 +19,6 @@ if (module.hot) {
 }
 
 function home(props){
-	console.log(props);
 	return <div className='redText'>我是首页</div>
 }
 function one(){

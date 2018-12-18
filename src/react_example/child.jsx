@@ -8,7 +8,6 @@ import css from './main.less';
 
 @connect(
 	function(state){
-		console.log(state);
 		return {count:state.get('count')}
 	},
 	// state => {count:state.get('count')},
@@ -60,7 +59,6 @@ class Child extends React.Component {
 	  }
 
 	render() {
-		console.log('render');
 		let children = this.props.content.map((item, index) => {
 			return <Link key={index} to={item.path} >{item.name}<i className={css.testI}>opp</i></Link>;
 		});

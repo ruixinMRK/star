@@ -19,7 +19,6 @@ class Home extends React.Component{
 		// this.props.changeList([{name:'1'},{name:"2"}]);
 	}
     render(){
-		console.log(this.props);
         return (<div onClick={this.clickItem} className={css.test}>
 			home123456
 			<ul>
